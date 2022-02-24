@@ -7,7 +7,7 @@ import { badRequest, internalServerError } from '../services/util';
 const insertUser = (req: Request, res: Response)=>{
 
     {
-        const user = req.body.user;
+        const user = req.body;
         if(!user)
             return badRequest(res,"Usuario Invalido");
 
@@ -18,7 +18,7 @@ const insertUser = (req: Request, res: Response)=>{
             return badRequest(res, 'Informe o nome');
     }
 
-    const user = req.body.user as User;
+    const user = req.body as User;
     userModel.insertUser(user)
         .then(id => (
             res.json(
