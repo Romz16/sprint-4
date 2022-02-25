@@ -21,10 +21,6 @@ export class CreateCoordinates1645785381069 implements MigrationInterface {
                   type: "varchar",
                 },
                 {
-                  name: "user_id",
-                  type: "uuid",
-                },
-                {
                   name:"email",
                   type:"varchar",
                 },
@@ -35,16 +31,6 @@ export class CreateCoordinates1645785381069 implements MigrationInterface {
                 },
               ],
       
-              foreignKeys: [
-                {
-                  name: "FKUserId",
-                  columnNames: ["user_id"],
-                  referencedTableName: "users",
-                  referencedColumnNames: ["id"],
-                  onDelete: "CASCADE",
-                  onUpdate: "CASCADE",
-                },
-              ],
             })
           );
     }

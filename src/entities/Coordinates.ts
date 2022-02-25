@@ -3,11 +3,9 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { User } from "./User";
+
 
 @Entity("coordinates")
 class Coordinate {
@@ -19,13 +17,6 @@ class Coordinate {
 
   @Column()
   longitude: string;
-
-  @JoinColumn({ name: "user_id" })
-  @ManyToOne(() => User)
-  user: User;
-
-  @Column()
-  user_id: string;
 
   @Column()
   email: string;

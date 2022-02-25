@@ -10,11 +10,15 @@ class CoordinatesController{
         
         const coordinatesService = new CoordinateService();
 
-    
-        const coordinates = await coordinatesService.create({latitude,longitude,email});
+        try{
+            const coordinates = await coordinatesService.create({latitude,longitude,email});
 
-        return response.json(coordinates);
-       
+            return response.json(coordinates);
+        }catch(err){
+            return response.status(400).json({
+                message: err.message
+            });
+        }
     }
 
 }

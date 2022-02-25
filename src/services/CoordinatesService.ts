@@ -1,5 +1,6 @@
 import{getCustomRepository} from "typeorm";
 import { CoordinateRepositorios } from "../repositorios/CoordinateRepositorio";
+import { UsersRepositorios } from "../repositorios/UsersRepositorios";
 
 
 
@@ -15,14 +16,24 @@ class CoordinateService{
 
     async create({latitude,longitude,email}: ICoordinateCreate){
         const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
+        const usersemail = getCustomRepository(UsersRepositorios);
 
-        //const coordinateAlreadyExists = await coordinateRepositorios.findOne({
-          //  email
-      //  });
+        const usernotExists = await usersemail.findOne({
+            email
+        });
+        
+        if(!usernotExists){
+           throw new Error ("User  not exists!");
+        }
 
-        //if(userAlreadyExists){
-          //  throw new Error ("User already exists!");
-        //}
+        const pointExists = await coordinateRepositorios.findOne({
+            latitude,
+            longitude
+        })
+
+        if(pointExists){
+            throw new Error ("Point already exists!");
+        }
 
         const coordinate = coordinateRepositorios.create({
             latitude,
