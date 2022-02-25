@@ -10,5 +10,7 @@ const coordinatesController = new CoordinatesController();
 routes.post("/users",usersController.create);
 routes.post("/coordinates",coordinatesController.create);
 
+routes.get("/coordinates/:email",coordinatesController.showByUser);
+
 
 export{routes};

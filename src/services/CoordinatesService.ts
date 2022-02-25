@@ -45,6 +45,16 @@ class CoordinateService{
         return coordinate;
     }
 
+    async ListByUser(email:string){
+        const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
+
+        const list = await coordinateRepositorios.find({
+            email
+        });
+
+        return list;
+    }
+
 }
 
 export {CoordinateService}

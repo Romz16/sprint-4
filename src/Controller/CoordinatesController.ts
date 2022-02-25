@@ -1,5 +1,5 @@
 import{getCustomRepository} from "typeorm"
-import { Request,Response } from "express"; 
+import { request, Request,Response } from "express"; 
 import { CoordinateService } from "../services/CoordinatesService";
 
 class CoordinatesController{
@@ -19,6 +19,16 @@ class CoordinatesController{
                 message: err.message
             });
         }
+    }
+
+    async showByUser(equest:Request,response:Response){
+        const{ email } = request.params;
+
+        const coordinatesService = new CoordinateService();
+
+        const list = await coordinatesService.ListByUser(email);
+
+        return response.json(list);
     }
 
 }

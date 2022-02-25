@@ -30,6 +30,16 @@ export class CreateCoordinates1645785381069 implements MigrationInterface {
                   default: "now()",
                 },
               ],
+              foreignKeys: [
+                {
+                  name: "FKUser",
+                  referencedTableName: "users",
+                  referencedColumnNames: ["email"],
+                  columnNames: ["email"],
+                  onDelete: "SET NULL",
+                  onUpdate: "SET NULL",
+                },
+              ],
       
             })
           );
