@@ -7,8 +7,8 @@ const routes = Router();
 const usersController = new UsersController();
 const coordinatesController = new CoordinatesController();
 
-routes.post("/users",usersController.create);
-routes.post("/coordinates",coordinatesController.create);
+routes.post("/users/:email/:nome",usersController.create);
+routes.post("/coordinates/:latitude/:longitude/:email",coordinatesController.create);
 
 routes.get("/coordinates/:email",coordinatesController.showByUser);
 
