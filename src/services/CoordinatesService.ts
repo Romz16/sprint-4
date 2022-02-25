@@ -7,23 +7,31 @@ interface ICoordinateCreate{
     latitude:string;
     longitude:string;
     email:string;
+    
 }
 
 
 class CoordinateService{
 
     async create({latitude,longitude,email}: ICoordinateCreate){
-        const coordinateRepositorio = getCustomRepository(CoordinateRepositorios);
+        const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
 
-        
+        //const coordinateAlreadyExists = await coordinateRepositorios.findOne({
+          //  email
+      //  });
 
-        const coordinate = coordinateRepositorio.create({
+        //if(userAlreadyExists){
+          //  throw new Error ("User already exists!");
+        //}
+
+        const coordinate = coordinateRepositorios.create({
             latitude,
             longitude,
-            email
+            email,
         });
 
-        await coordinateRepositorio.save(coordinate);
+        await coordinateRepositorios.save(coordinate);
+        return coordinate;
     }
 
 }

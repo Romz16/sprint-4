@@ -28,6 +28,7 @@ class UserService{
         });
 
         await usersRepositorios.save(users);
+        return users;
     }
 
 }

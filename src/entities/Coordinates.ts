@@ -1,15 +1,16 @@
 import {
-    Entity,
-    PrimaryColumn,
-    CreateDateColumn,
-    Column,
-    ManyToOne,
-    JoinColumn,
-  } from "typeorm";
-  import { v4 as uuid } from "uuid";
-  import { User } from "./User"
+  Entity,
+  PrimaryColumn,
+  CreateDateColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
+import { User } from "./User";
 
-class Coordinate{
+@Entity("coordinates")
+class Coordinate {
   @PrimaryColumn()
   id: string;
 
@@ -19,15 +20,15 @@ class Coordinate{
   @Column()
   longitude: string;
 
-  @Column()
-  email: string;
-
   @JoinColumn({ name: "user_id" })
   @ManyToOne(() => User)
   user: User;
 
   @Column()
   user_id: string;
+
+  @Column()
+  email: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -38,4 +39,5 @@ class Coordinate{
     }
   }
 }
-export{Coordinate};
+
+export { Coordinate };
