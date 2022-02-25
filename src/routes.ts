@@ -12,5 +12,7 @@ routes.post("/coordinates",coordinatesController.create);
 
 routes.get("/coordinates/:email",coordinatesController.showByUser);
 
+routes.delete("/coodinates/:id/:email",coordinatesController.delete);
+
 
 export{routes};

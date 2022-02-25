@@ -6,7 +6,7 @@ class UsersController{
 
     async create(request:Request,response:Response):Promise<Response>{
 
-        const {email,nome}=request.body;
+        const {email,nome}=request.params;
         
         const usersService = new UserService();
 

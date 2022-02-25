@@ -11,6 +11,11 @@ interface ICoordinateCreate{
     
 }
 
+interface ICoordinateDelete{
+    id: string;
+    email:string;
+}
+
 
 class CoordinateService{
 
@@ -43,6 +48,17 @@ class CoordinateService{
 
         await coordinateRepositorios.save(coordinate);
         return coordinate;
+    }
+
+    async delete({id,email}:ICoordinateDelete){
+        const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
+        const usersemail = getCustomRepository(UsersRepositorios);
+
+        
+        const coordinate = coordinateRepositorios.delete({
+            id,
+            email,
+        });
     }
 
     async ListByUser(email:string){
