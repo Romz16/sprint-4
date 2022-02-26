@@ -2,8 +2,6 @@ import{getCustomRepository} from "typeorm";
 import { CoordinateRepositorios } from "../repositorios/CoordinateRepositorio";
 import { UsersRepositorios } from "../repositorios/UsersRepositorios";
 
-
-
 interface ICoordinateCreate{
     latitude:string;
     longitude:string;
@@ -50,17 +48,6 @@ class CoordinateService{
         return coordinate;
     }
 
-    async delete({id,email}:ICoordinateDelete){
-        const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
-        const usersemail = getCustomRepository(UsersRepositorios);
-
-        
-        const coordinate = coordinateRepositorios.delete({
-            id,
-            email,
-        });
-    }
-
     async ListByUser(email:string){
         const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
 
@@ -71,6 +58,40 @@ class CoordinateService{
         return list;
     }
 
+    async update(email: string,id:string, newLatitude:string,newLongitude: string) {
+        const  coordinateRepositorios = getCustomRepository(CoordinateRepositorios);
+        const coordinate = await coordinateRepositorios.findOne({
+            email,
+            id
+        });
+        console.log(coordinate);
+
+        if (!coordinate) throw new Error('coordinate not found')
+            
+        coordinate.latitude = newLatitude;
+        coordinate.longitude = newLongitude;
+        try { 
+            await coordinateRepositorios.save(coordinate); 
+        } catch (error) {
+            throw new Error('fail to update')
+        }
+        
+    }
+
+    async delete(id: string, email: string) {
+        const coordinateRepositorios = getCustomRepository(CoordinateRepositorios);        
+        const coordinate = await coordinateRepositorios.findOne({
+            id, email
+        });
+        
+        if (coordinate) {
+            try {
+                await coordinateRepositorios.delete(coordinate.id);
+            } catch (error) {
+                throw new Error('fail to remove')
+            }
+        }
+    }   
 }
 
 export {CoordinateService}

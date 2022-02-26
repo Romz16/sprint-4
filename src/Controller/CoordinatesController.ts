@@ -6,7 +6,7 @@ class CoordinatesController{
 
     async create(request:Request,response:Response):Promise<Response>{
 
-        const {latitude,longitude,email}=request.params;
+        const {latitude,longitude,email}=request.query as{latitude:string,longitude:string,email:string};
         
         const coordinatesService = new CoordinateService();
 
@@ -22,11 +22,11 @@ class CoordinatesController{
     }
 
     async delete(request:Request,response:Response):Promise<Response>{
-        const{id,email}=request.params;
+        const{id, email}=request.query ;
         const coordinatesService = new CoordinateService();
 
         try{
-            const coordinates = await coordinatesService.delete({id,email});
+            await coordinatesService.delete(id as string, email as string);
 
             return response.json({
                 message: "coordinates have been deleted"
@@ -38,8 +38,25 @@ class CoordinatesController{
         }
     }
 
+    async update(request: Request, response: Response): Promise<Response> {
+        const {email, id,latitude,longitude} = request.query as {email: string, id: string,latitude:string,longitude:string};
+        const coordinateService = new CoordinateService();
+
+        try{
+            await coordinateService.update(email, id,latitude,longitude);
+
+            return response.json({
+                message: "pont have been updated"
+            });
+        }catch(err){
+            return response.status(400).json({
+                message: err.message
+            });
+        }
+    }
+
     async showByUser(request:Request,response:Response){
-        const{ email } = request.params;
+        const{ email } = request.params
 
         const coordinatesService = new CoordinateService();
 

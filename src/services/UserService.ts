@@ -31,6 +31,38 @@ class UserService{
         return users;
     }
 
+    async update(email: string, newName: string) {
+        const usersRepositorios = getCustomRepository(UsersRepositorios);
+        const user = await usersRepositorios.findOne({
+            email
+        });
+        console.log(user);
+
+        if (!user) throw new Error('user not found')
+            
+        user.nome = newName;
+        try { 
+            await usersRepositorios.save(user); 
+        } catch (error) {
+            throw new Error('fail to update')
+        }
+        
+    }
+
+    async delete(email: string) {
+        const usersRepositorios = getCustomRepository(UsersRepositorios);
+        const user = await usersRepositorios.findOne({
+            email
+        });
+
+        if (user) {
+            try { 
+                await usersRepositorios.delete(user.id) 
+            } catch (error) {
+                throw new Error('fail to remove')
+            }
+        }
+    }
 }
 
 export {UserService}
