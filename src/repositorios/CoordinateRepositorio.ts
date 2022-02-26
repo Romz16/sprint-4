@@ -3,9 +3,7 @@ import { Coordinate} from "../entities/Coordinates";
 
 @EntityRepository(Coordinate)
 
-class CoordinateRepositorios extends Repository<Coordinate>{
-    
-}
+class CoordinateRepositorios extends Repository<Coordinate>{}
 
 export {CoordinateRepositorios}
 
