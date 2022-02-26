@@ -22,11 +22,12 @@ class CoordinatesController{
     }
 
     async delete(request:Request,response:Response):Promise<Response>{
-        const{id, email}=request.query ;
+        const{id, email}=request.query;
+        
         const coordinatesService = new CoordinateService();
 
         try{
-            await coordinatesService.delete(id as string, email as string);
+            await coordinatesService.delete(String(id), String(email));
 
             return response.json({
                 message: "coordinates have been deleted"

@@ -84,14 +84,15 @@ class CoordinateService{
             id, email
         });
         
-        if (coordinate) {
-            try {
-                await coordinateRepositorios.delete(coordinate.id);
-            } catch (error) {
-                throw new Error('fail to remove')
-            }
+        if(!coordinate) throw new Error('not found')
+
+        try {
+            await coordinateRepositorios.delete(coordinate.id);
+        } catch (error) {
+            throw new Error('fail to remove')
         }
-    }   
+    
+    }
 }
 
 export {CoordinateService}
